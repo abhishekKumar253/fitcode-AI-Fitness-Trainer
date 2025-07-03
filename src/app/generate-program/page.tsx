@@ -136,6 +136,7 @@ const GenerateProgramPage = () => {
             user_id: user?.id,
           },
         });
+        console.log("Workflow ID", process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID);
       } catch (error) {
         console.log("Failed to start call", error);
         setConnecting(false);
@@ -320,3 +321,4 @@ const GenerateProgramPage = () => {
   );
 };
 export default GenerateProgramPage;
+
