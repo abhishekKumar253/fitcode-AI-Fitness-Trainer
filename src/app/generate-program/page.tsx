@@ -28,14 +28,13 @@ const GenerateProgramPage = () => {
           (args[0] && args[0].toString().includes("Meeting has ended")))
       ) {
         console.log("Ignoring known error: Meeting has ended");
-        return; // don't pass to original handler
+        return;
       }
 
       // pass all other errors to the original handler
       return originalError.call(console, msg, ...args);
     };
 
-    // restore original handler on unmount
     return () => {
       console.error = originalError;
     };
@@ -44,7 +43,8 @@ const GenerateProgramPage = () => {
   // auto-scroll messages
   useEffect(() => {
     if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -153,7 +153,8 @@ const GenerateProgramPage = () => {
             <span className="text-primary uppercase">Fitness Program</span>
           </h1>
           <p className="text-muted-foreground mt-2">
-            Have a voice conversation with our AI assistant to create your personalized plan
+            Have a voice conversation with our AI assistant to create your
+            personalized plan
           </p>
         </div>
 
@@ -166,8 +167,7 @@ const GenerateProgramPage = () => {
               <div
                 className={`absolute inset-0 ${
                   isSpeaking ? "opacity-30" : "opacity-0"
-                } transition-opacity duration-300`}
-              >
+                } transition-opacity duration-300`}>
                 {/* Voice wave animation when speaking */}
                 <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex justify-center items-center h-20">
                   {[...Array(5)].map((_, i) => (
@@ -178,7 +178,9 @@ const GenerateProgramPage = () => {
                       }`}
                       style={{
                         animationDelay: `${i * 0.1}s`,
-                        height: isSpeaking ? `${Math.random() * 50 + 20}%` : "5%",
+                        height: isSpeaking
+                          ? `${Math.random() * 50 + 20}%`
+                          : "5%",
                       }}
                     />
                   ))}
@@ -204,15 +206,16 @@ const GenerateProgramPage = () => {
               </div>
 
               <h2 className="text-xl font-bold text-foreground">FitCode AI</h2>
-              <p className="text-sm text-muted-foreground mt-1">Fitness & Diet Coach</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Fitness & Diet Coach
+              </p>
 
               {/* SPEAKING INDICATOR */}
 
               <div
                 className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border ${
                   isSpeaking ? "border-primary" : ""
-                }`}
-              >
+                }`}>
                 <div
                   className={`w-2 h-2 rounded-full ${
                     isSpeaking ? "bg-primary animate-pulse" : "bg-muted"
@@ -233,7 +236,8 @@ const GenerateProgramPage = () => {
           </Card>
 
           {/* USER CARD */}
-          <Card className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative`}>
+          <Card
+            className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative`}>
             <div className="aspect-video flex flex-col items-center justify-center p-6 relative">
               {/* User Image */}
               <div className="relative size-32 mb-4">
@@ -247,11 +251,14 @@ const GenerateProgramPage = () => {
 
               <h2 className="text-xl font-bold text-foreground">You</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                {user ? (user.firstName + " " + (user.lastName || "")).trim() : "Guest"}
+                {user
+                  ? (user.firstName + " " + (user.lastName || "")).trim()
+                  : "Guest"}
               </p>
 
               {/* User Ready Text */}
-              <div className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border`}>
+              <div
+                className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border`}>
                 <div className={`w-2 h-2 rounded-full bg-muted`} />
                 <span className="text-xs text-muted-foreground">Ready</span>
               </div>
@@ -263,13 +270,12 @@ const GenerateProgramPage = () => {
         {messages.length > 0 && (
           <div
             ref={messageContainerRef}
-            className="w-full bg-card/90 backdrop-blur-sm border border-border rounded-xl p-4 mb-8 h-64 overflow-y-auto transition-all duration-300 scroll-smooth"
-          >
+            className="w-full bg-card/90 backdrop-blur-sm border border-border rounded-xl p-4 mb-8 h-64 overflow-y-auto transition-all duration-300 scroll-smooth">
             <div className="space-y-3">
               {messages.map((msg, index) => (
                 <div key={index} className="message-item animate-fadeIn">
                   <div className="font-semibold text-xs text-muted-foreground mb-1">
-                    {msg.role === "assistant" ? "CodeFlex AI" : "You"}:
+                    {msg.role === "assistant" ? "FitCode AI" : "You"}:
                   </div>
                   <p className="text-foreground">{msg.content}</p>
                 </div>
@@ -277,9 +283,12 @@ const GenerateProgramPage = () => {
 
               {callEnded && (
                 <div className="message-item animate-fadeIn">
-                  <div className="font-semibold text-xs text-primary mb-1">System:</div>
+                  <div className="font-semibold text-xs text-primary mb-1">
+                    System:
+                  </div>
                   <p className="text-foreground">
-                    Your fitness program has been created! Redirecting to your profile...
+                    Your fitness program has been created! Redirecting to your
+                    profile...
                   </p>
                 </div>
               )}
@@ -298,8 +307,7 @@ const GenerateProgramPage = () => {
                   : "bg-primary hover:bg-primary/90"
             } text-white relative`}
             onClick={toggleCall}
-            disabled={connecting || callEnded}
-          >
+            disabled={connecting || callEnded}>
             {connecting && (
               <span className="absolute inset-0 rounded-full animate-ping bg-primary/50 opacity-75"></span>
             )}
@@ -320,4 +328,3 @@ const GenerateProgramPage = () => {
   );
 };
 export default GenerateProgramPage;
-
