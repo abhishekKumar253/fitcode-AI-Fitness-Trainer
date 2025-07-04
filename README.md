@@ -59,11 +59,11 @@ NEXT_PUBLIC_GEMINI_API_KEY=
     cd fitcode-ai-fitness
 
 2.  Install Dependencies
-    npm install
+        npm install
 
 3.  Run the App
-    npm run dev
+        npm run dev
 
 📦 Deployment (Vercel)
-npm run build
-npm start
+        npm run build
+        npm start
