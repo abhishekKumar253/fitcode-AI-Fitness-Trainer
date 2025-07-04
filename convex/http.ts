@@ -143,7 +143,7 @@ http.route({
         workout_days,
         fitness_goal,
         fitness_level,
-        dietetary_restrictions,
+        dietary_restrictions,
       } = payload;
 
       console.log("Payload is here:", payload);
@@ -212,12 +212,12 @@ http.route({
         Height: ${height}
         Weight: ${weight}
         Fitness goal: ${fitness_goal}
-        Dietetary restrictions: ${dietetary_restrictions}
+        Dietary restrictions: ${dietary_restrictions}
         
         As a professional nutrition coach:
         - Calculate appropriate daily calorie intake based on the person's stats and goals
         - Create a balanced meal plan with proper macronutrient distribution
-        - Include a variety of nutrient-dense foods while respecting dietetary restrictions
+        - Include a variety of nutrient-dense foods while respecting dietary restrictions
         - Consider meal timing around workouts for optimal performance and recovery
         
         CRITICAL SCHEMA INSTRUCTIONS:

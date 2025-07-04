@@ -1,20 +1,18 @@
-import { v } from "convex/values";
 import { mutation } from "./_generated/server";
-
-const userArgs = {
-  name: v.string(),
-  email: v.string(),
-  clerkId: v.string(),
-  image: v.optional(v.string()),
-};
+import { v } from "convex/values";
 
 export const syncUser = mutation({
-  args: userArgs,
+  args: {
+    name: v.string(),
+    email: v.string(),
+    clerkId: v.string(),
+    image: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const existingUser = await ctx.db
       .query("users")
-      .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
-      .unique();
+      .filter((q) => q.eq(q.field("clerkId"), args.clerkId))
+      .first();
 
     if (existingUser) return;
 
@@ -23,19 +21,20 @@ export const syncUser = mutation({
 });
 
 export const updateUser = mutation({
-  args: userArgs,
+  args: {
+    name: v.string(),
+    email: v.string(),
+    clerkId: v.string(),
+    image: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const existingUser = await ctx.db
       .query("users")
       .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
-      .unique();
+      .first();
 
     if (!existingUser) return;
 
-    return await ctx.db.patch(existingUser._id, {
-      name: args.name,
-      email: args.email,
-      image: args.image,
-    });
+    return await ctx.db.patch(existingUser._id, args);
   },
 });

@@ -21,6 +21,7 @@ const GenerateProgramPage = () => {
 
   useEffect(() => {
     const originalError = console.error;
+
     console.error = function (msg, ...args) {
       if (
         msg &&
@@ -31,7 +32,6 @@ const GenerateProgramPage = () => {
         return;
       }
 
-      // pass all other errors to the original handler
       return originalError.call(console, msg, ...args);
     };
 
@@ -40,7 +40,6 @@ const GenerateProgramPage = () => {
     };
   }, []);
 
-  // auto-scroll messages
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop =
@@ -48,7 +47,6 @@ const GenerateProgramPage = () => {
     }
   }, [messages]);
 
-  // navigate user to profile page after the call ends
   useEffect(() => {
     if (callEnded) {
       const redirectTimer = setTimeout(() => {
@@ -59,7 +57,6 @@ const GenerateProgramPage = () => {
     }
   }, [callEnded, router]);
 
-  // setup event listeners for vapi
   useEffect(() => {
     const handleCallStart = () => {
       console.log("Call started");
@@ -327,4 +324,5 @@ const GenerateProgramPage = () => {
     </div>
   );
 };
+
 export default GenerateProgramPage;
